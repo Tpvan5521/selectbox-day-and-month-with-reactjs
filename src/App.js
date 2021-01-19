@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+export default function App() {
+
+  const [selectedMon, setMon] = React.useState(1)
+  const [selectedDay, setDay] = React.useState(1)
+
+  const handleChangeMon = (e) => {
+    setMon(e.target.value)
+  }
+  const handleChangeDay = (e) => {
+    setDay(e.target.value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>Chọn tháng:
+          <select onChange={handleChangeMon}>
+          {[...Array(12)].map((_, index) => (
+            <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </div>
+      <div>Chọn ngày:
+        <select onChange={handleChangeDay}>
+          {[...Array(new Date(2021, selectedMon, 0).getDate())].map((_, index) => (
+          <option key={index + 1} value={index + 1}>{index + 1}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>Ngày {selectedDay} tháng {selectedMon}</div>
     </div>
   );
-}
-
-export default App;
+};
